@@ -8,20 +8,26 @@ class App extends React.Component{
   constructor(props){
     super(props)
     this.state ={
-      authToken : null, name : null, email: null, id: null, 
+      authToken : null, name : null, email : null 
   }
   
   }
   //User Management
-  _setAuthState =()=>{}
-  _logOut = ()=>{}
+  _setAuthState =(object)=>{
+    this.setState(
+      object
+    )
+  }
+  _logout = ()=>{
+    this.setState({})
+  }
 
   render(){
     return (
       <>
         <Router>
-          <Route path="/" render={()=><NavbarShell userInfo={{...this.state}}/>} />
-          <Route exact path="/" render={(props)=><Home {...props} userInfo={{...this.state}}/>}/>
+          <Route path="/" render={(props)=><NavbarShell {...props} userInfo={{...this.state}} logout={this._logout}/>} />
+          <Route exact path="/" render={(props)=><Home {...props} userInfo={{...this.state}} setAuth={this._setAuthState} />}/>
         </Router>
       </>        
     );
