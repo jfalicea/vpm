@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-
+import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component{
   constructor(props){
@@ -22,13 +22,15 @@ class Login extends React.Component{
   
    submitForm=async(e)=>{
     e.preventDefault();
-    const formData = {...this.state}
-    const url =`http://localhost:3000/users/login`
-    const userLoginInfo = await axios.post(url, formData)
-    console.log('___===__', userLoginInfo.data )
-    this.setState({msg:userLoginInfo.data.msg})
-    this.props.setAuthState(userLoginInfo.data.userInfo)
-    // this.setAuthState({authToken:userLoginInfo.data.token, name:null, email:null})
+    const formData = {...this.state};
+    const url =`http://localhost:3000/users/login`;
+    const userLoginInfo = await axios.post(url, formData);
+    console.log('___===__', userLoginInfo.data );
+    this.setState({msg:userLoginInfo.data.msg, password:"", email:""});
+    this.props.setAuthState(userLoginInfo.data.userInfo);
+    if(this.props.authToken){
+      return <Redirect to="/user/dashboard" />
+    }
   }
 
 

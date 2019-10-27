@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
+import UserPages from './components/UserPages/UserPages';
 
 class App extends React.Component{
   constructor(props){
@@ -26,8 +27,12 @@ class App extends React.Component{
     return (
       <>
        <Router> 
-         <Route path='/' component={Navbar}/>
-         <Route exact path='/' render={(props)=><Login {...props} userInfo={{...this.state}} setAuthState={this._setAuthState} /> }/>
+        <Route path='/' render={(props)=><Navbar {...props} userInfo={{...this.state}} logout={this._logout}/>}/>
+          {/* LOGIN PROCESS */}
+        <Route exact path='/' render={(props)=><Login {...props} userInfo={{...this.state}} setAuthState={this._setAuthState} /> }/>
+        <Route exact path='/user/dashboard' render={(props)=><UserPages />}/>
+       
+       
        </Router>
       </>        
     );
