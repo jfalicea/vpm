@@ -19,13 +19,14 @@ class Navbar extends React.Component{
   //build navbar links. this depends on whether or not users are authenticated. 
   navBarContents=()=>{
     let navbarlinks = <NavContentsNoAuth/>
-    if(this.props.authToken){
+    if(this.props.userInfo.authToken){
       navbarlinks = <NavContentsAuth />
     } 
     return  navbarlinks
   }
 
   render(){
+
     let navLinks = this.navBarContents()
     return(<>
       <nav>
