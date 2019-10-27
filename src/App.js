@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import Home from './components/Home/Home'
-import NavbarShell from './components/Navbar/NavbarShell';
+import Login from './components/Login/Login';
+import Navbar from './components/Navbar/Navbar';
 
 class App extends React.Component{
   constructor(props){
     super(props)
     this.state ={
       authToken : null, name : null, email : null 
-  }
+    }
   
   }
   //User Management
@@ -25,10 +25,10 @@ class App extends React.Component{
   render(){
     return (
       <>
-        <Router>
-          <Route path="/" render={(props)=><NavbarShell {...props} userInfo={{...this.state}} logout={this._logout}/>} />
-          <Route exact path="/" render={(props)=><Home {...props} userInfo={{...this.state}} setAuth={this._setAuthState} />}/>
-        </Router>
+       <Router> 
+         <Route path='/' component={Navbar}/>
+         <Route exact path='/' render={(props)=><Login {...props} userInfo={{...this.state}} setAuthState={this._setAuthState} /> }/>
+       </Router>
       </>        
     );
   }
