@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component{
   constructor(props){
@@ -28,9 +27,7 @@ class Login extends React.Component{
     console.log('___===__', userLoginInfo.data );
     this.setState({msg:userLoginInfo.data.msg, password:"", email:""});
     this.props.setAuthState(userLoginInfo.data.userInfo);
-    if(this.props.authToken){
-      return <Redirect to="/user/dashboard" />
-    }
+    console.log('---',this.props.userInfo.authToken )
   }
 
 

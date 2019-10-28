@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import UserPages from './components/UserPages/UserPages';
+import VendorDashboard from './components/UserPages/VendorManagement/VendorDashboard';
 
 class App extends React.Component{
   constructor(props){
@@ -18,7 +19,7 @@ class App extends React.Component{
     this.setState(
       object
     )
-  }
+  }  
   _logout = ()=>{
     this.setState({})
   }
@@ -28,11 +29,17 @@ class App extends React.Component{
       <>
        <Router> 
         <Route path='/' render={(props)=><Navbar {...props} userInfo={{...this.state}} logout={this._logout}/>}/>
-          {/* LOGIN PROCESS */}
         <Route exact path='/' render={(props)=><Login {...props} userInfo={{...this.state}} setAuthState={this._setAuthState} /> }/>
-        <Route exact path='/user/dashboard' render={(props)=><UserPages />}/>
-       
-       
+        {
+        (this.state.authToken)?
+          <>
+            <Route exact path='/user/dashboard' render={(props)=><UserPages userInfo={{...this.state}}/>}/>
+            <Route exact path='/user/vmp' render={(props)=><VendorDashboard userInfo={{...this.state}}/>}/>
+          </>
+          : 
+          null
+        }
+            
        </Router>
       </>        
     );
